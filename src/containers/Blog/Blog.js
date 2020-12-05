@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import './Blog.css';
 import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
+// import NewPost from './NewPost/NewPost';
 import { Route, NavLink } from 'react-router-dom';
 import Post from './FullPost/FullPost';
+import asyncComponent from '../../Hoc/asyncComponent';
+
+const AsyncNewPost = asyncComponent(() => {
+    return import('./NewPost/NewPost');
+});
 
 class Blog extends Component {
     
@@ -19,7 +24,7 @@ class Blog extends Component {
                     </nav>
                 </header>
                     <Route path="/" exact component={Posts} />
-                    <Route path="/new_post" exact component={NewPost} />
+                    <Route path="/new_post" exact component={AsyncNewPost} />
                     <Route path="/posts/:id" exact component={Post} />
             </div>
         );
